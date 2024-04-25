@@ -1,0 +1,28 @@
+{
+    "configurations": [
+        {
+            "type": "lldb",
+            "request": "launch",
+            "sourceLanguages": [
+                "swift"
+            ],
+            "args": [],
+            "cwd": "${workspaceFolder:JsonScripts}",
+            "name": "Debug JsonScripts",
+            "program": "${workspaceFolder:JsonScripts}/.build/debug/JsonScripts",
+            "preLaunchTask": "swift: Build Debug JsonScripts"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "sourceLanguages": [
+                "swift"
+            ],
+            "args": [],
+            "cwd": "${workspaceFolder:JsonScripts}",
+            "name": "Release JsonScripts",
+            "program": "${workspaceFolder:JsonScripts}/.build/release/JsonScripts",
+            "preLaunchTask": "swift: Build Release JsonScripts"
+        }
+    ]
+}
