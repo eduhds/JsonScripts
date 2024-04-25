@@ -5,5 +5,5 @@
 struct JsonScripts {
   static func main() {
     print("Hello, Swift!")
-   }
+  }
 }
