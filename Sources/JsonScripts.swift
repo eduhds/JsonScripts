@@ -1,31 +1,26 @@
+import ArgumentParser
+import Figlet
 import Foundation
 
-func shell(_ command: String) throws -> String {
-  let task: Process = Process()
-  let pipe: Pipe = Pipe()
-
-  task.standardOutput = pipe
-  task.standardError = pipe
-  task.arguments = ["-c", command]
-  task.executableURL = URL(fileURLWithPath: "/bin/sh")
-  task.standardInput = nil
-
-  try task.run()
-
-  let data: Data = pipe.fileHandleForReading.readDataToEndOfFile()
-  let output: String = String(data: data, encoding: .utf8)!
-
-  return output
-}
+// TODO: Shell snippets (contexto pasta local/global, variáveis, add, list, search, run, config file)
 
 @main
-struct JsonScripts {
-  struct Scripts: Codable {
+struct JsonScripts: ParsableCommand {
+  @Argument(help: "Specify the command")
+  public var command: String
+
+  @Option(help: "Specify the file")
+  public var file: String?
+
+  struct JsonDefinition: Codable {
     let version: Int
-    let value: String
+    let variables: [String: String]
+    let scripts: [String: String]
   }
 
-  static func main() {
+  public func run() throws {
+    Figlet.say("JsonScripts")
+
     do {
       let fileURL = URL(fileURLWithPath: "./scripts.json")
       let fileHandle = try FileHandle(forReadingFrom: fileURL)
@@ -37,22 +32,33 @@ struct JsonScripts {
       if let contents = String(data: data, encoding: .utf8) {
         let jsonData = contents.data(using: .utf8)!
         let decoder = JSONDecoder()
-        let scripts = try decoder.decode(Scripts.self, from: jsonData)
+        let json = try decoder.decode(JsonDefinition.self, from: jsonData)
 
-        print("Version: \(scripts.version)")
+        print("> Version: \(json.version)")
 
-        let command = scripts.value.split(separator: " ").map { String($0) }
+        if let commandStr = json.scripts[command] {
+          print("> \(commandStr)")
 
-        let program = try shell("command -v \(command[0])").trimmingCharacters(
-          in: .whitespacesAndNewlines)
-        print("Program: \(program)")
+          let output = try shell(commandStr).trimmingCharacters(
+            in: .whitespacesAndNewlines)
 
-        let process = Process()
-        process.executableURL = URL(fileURLWithPath: program)
-        process.arguments = Array(command[1...])
+          print(output)
 
-        try process.run()
-        process.waitUntilExit()
+          /* let commandArr = commandStr.split(separator: " ").map { String($0) }
+
+          let program = try shell("command -v \(commandArr[0])").trimmingCharacters(
+            in: .whitespacesAndNewlines)
+          print("Program: \(program)")
+
+          let process = Process()
+          process.executableURL = URL(fileURLWithPath: program)
+          process.arguments = Array(commandArr[1...])
+
+          try process.run()
+          process.waitUntilExit() */
+        } else {
+          print("Command not found")
+        }
       } else {
         print("Failed to read file contents")
       }

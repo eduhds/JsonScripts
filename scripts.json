@@ -1,4 +1,12 @@
 {
     "version": 1,
-    "value": "ls -la"
+    "variables": {
+        "name": "JsonScripts"
+    },
+    "scripts": {
+        "hello": "echo 'Hello World!'",
+        "hello-name": "echo 'Hello {{name}}'",
+        "ls": "ls -la",
+        "ls-home": "ls -la ~"
+    }
 }
