@@ -12,55 +12,33 @@ struct JsonScripts: ParsableCommand {
   @Option(help: "Specify the file")
   public var file: String?
 
-  struct JsonDefinition: Codable {
-    let version: Int
-    let variables: [String: String]
-    let scripts: [String: String]
-  }
-
   public func run() throws {
     Figlet.say("JsonScripts")
 
+    let definition = Definition()
+
     do {
-      let fileURL = URL(fileURLWithPath: "./scripts.json")
-      let fileHandle = try FileHandle(forReadingFrom: fileURL)
-      defer {
-        fileHandle.closeFile()
-      }
 
-      let data = fileHandle.readDataToEndOfFile()
-      if let contents = String(data: data, encoding: .utf8) {
-        let jsonData = contents.data(using: .utf8)!
-        let decoder = JSONDecoder()
-        let json = try decoder.decode(JsonDefinition.self, from: jsonData)
+      try definition.open(path: file ?? definition.defaultPath)
+    } catch {
+      print("Error: Failed to read file contents \(error)")
+      return
 
-        print("> Version: \(json.version)")
+    }
 
-        if let commandStr = json.scripts[command] {
-          print("> \(commandStr)")
+    do {
+      print("> Version: \(definition.json!.version)")
 
-          let output = try shell(commandStr).trimmingCharacters(
-            in: .whitespacesAndNewlines)
+      if let commandStr = definition.json!.scripts[command] {
+        print("> \(commandStr)")
 
-          print(output)
+        let output = try shell(commandStr).trimmingCharacters(
+          in: .whitespacesAndNewlines)
 
-          /* let commandArr = commandStr.split(separator: " ").map { String($0) }
+        print(output)
 
-          let program = try shell("command -v \(commandArr[0])").trimmingCharacters(
-            in: .whitespacesAndNewlines)
-          print("Program: \(program)")
-
-          let process = Process()
-          process.executableURL = URL(fileURLWithPath: program)
-          process.arguments = Array(commandArr[1...])
-
-          try process.run()
-          process.waitUntilExit() */
-        } else {
-          print("Command not found")
-        }
       } else {
-        print("Failed to read file contents")
+        print("Command not found")
       }
     } catch {
       print("Error: \(error)")

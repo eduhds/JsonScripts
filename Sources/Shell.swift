@@ -17,3 +17,16 @@ func shell(_ command: String) throws -> String {
 
   return output
 }
+
+/* let commandArr = commandStr.split(separator: " ").map { String($0) }
+
+let program = try shell("command -v \(commandArr[0])").trimmingCharacters(
+  in: .whitespacesAndNewlines)
+print("Program: \(program)")
+
+let process = Process()
+process.executableURL = URL(fileURLWithPath: program)
+process.arguments = Array(commandArr[1...])
+
+try process.run()
+process.waitUntilExit() */
