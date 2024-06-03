@@ -2,35 +2,50 @@ import ArgumentParser
 import Figlet
 import Foundation
 
-// TODO: Shell snippets (contexto pasta local/global, variáveis, add, list, search, run, config file)
-
 @main
 struct JsonScripts: ParsableCommand {
-  @Argument(help: "Specify the command")
+  @Argument(help: "Specify the command alias/key")
   public var command: String
 
-  @Option(help: "Specify the file")
+  @Option(help: "Specify the json file, defaul is \"./scripts.json\"")
   public var file: String?
 
+  @Flag(help: "Silent mode")
+  public var silent: Bool = false
+
   public func run() throws {
-    Figlet.say("JsonScripts")
+    if !silent {
+      Figlet.say("JsonScripts")
+    }
 
     let definition = Definition()
 
     do {
-
       try definition.open(path: file ?? definition.defaultPath)
     } catch {
-      print("Error: Failed to read file contents \(error)")
+      tuiError("\(error)")
       return
-
     }
 
     do {
-      print("> Version: \(definition.json!.version)")
+      try definition.checkVersion()
 
-      if let commandStr = definition.json!.scripts[command] {
-        print("> \(commandStr)")
+      if !silent {
+        tuiInfo("Version: \(definition.json!.version)")
+      }
+
+      if var commandStr = definition.json!.scripts[command] {
+
+        if commandStr.contains("{{") && commandStr.contains("}}") {
+          for variable in definition.json!.variables {
+            commandStr = commandStr.replacingOccurrences(
+              of: "{{\(variable.key)}}", with: variable.value)
+          }
+        }
+
+        if !silent {
+          tuiInfo("Command: \(commandStr)")
+        }
 
         let output = try shell(commandStr).trimmingCharacters(
           in: .whitespacesAndNewlines)
@@ -38,10 +53,10 @@ struct JsonScripts: ParsableCommand {
         print(output)
 
       } else {
-        print("Command not found")
+        tuiError("Command not found")
       }
     } catch {
-      print("Error: \(error)")
+      tuiError("Error: \(error)")
     }
   }
 }
