@@ -8,9 +8,12 @@ struct JsonFormat: Codable {
 
 enum OpenError: Error {
   case fileContentNotFound
+  case versionUnsupported
 }
 
 class Definition {
+  let currentVersion: Int = 1
+
   let defaultPath: String = "./scripts.json"
 
   var json: JsonFormat?
@@ -31,6 +34,12 @@ class Definition {
       json = try decoder.decode(JsonFormat.self, from: jsonContent)
     } else {
       throw OpenError.fileContentNotFound
+    }
+  }
+
+  func checkVersion() throws {
+    if json!.version < currentVersion {
+      throw OpenError.versionUnsupported
     }
   }
 }
