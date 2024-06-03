@@ -8,6 +8,7 @@ let package = Package(
   dependencies: [
     .package(url: "https://github.com/apple/example-package-figlet", branch: "main"),
     .package(url: "https://github.com/apple/swift-argument-parser", from: "1.0.0"),
+    .package(url: "https://github.com/jordanbaird/Prism", from: "0.1.2"),
     // Dev dependencies
     .package(url: "https://github.com/apple/swift-format.git", branch: ("release/5.10")),
   ],
@@ -19,6 +20,7 @@ let package = Package(
       dependencies: [
         .product(name: "Figlet", package: "example-package-figlet"),
         .product(name: "ArgumentParser", package: "swift-argument-parser"),
+        .product(name: "Prism", package: "Prism"),
       ],
       path: "Sources")
   ]

@@ -1,5 +1,5 @@
 {
-  "originHash" : "bff7a7f47814cb81a153b39b0beebd9c8ce43b0e7a2deac00508181363e48037",
+  "originHash" : "e19fbc76e267a70f3b1e076adfe017277f9e870a06b677de366f61883e12ecb9",
   "pins" : [
     {
       "identity" : "example-package-figlet",
@@ -8,6 +8,15 @@
       "state" : {
         "branch" : "main",
         "revision" : "166eef46de0b094d6d1966e749f727d6c4beba0e"
+      }
+    },
+    {
+      "identity" : "prism",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jordanbaird/Prism",
+      "state" : {
+        "revision" : "3712037843b9bba341130e4e36be7662ef07e704",
+        "version" : "0.1.2"
       }
     },
     {
