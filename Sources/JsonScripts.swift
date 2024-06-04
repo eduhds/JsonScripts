@@ -4,19 +4,26 @@ import Foundation
 
 @main
 struct JsonScripts: ParsableCommand {
+  static let configuration = CommandConfiguration(
+    commandName: "jsonscripts",
+    version: "0.0.1"
+  )
+
   @Argument(help: "Specify the command alias/key")
   public var command: String
 
-  @Option(help: "Specify the json file, defaul is \"./scripts.json\"")
+  @Option(help: "Specify the json file, default is \"./scripts.json\"")
   public var file: String?
 
   @Flag(help: "Silent mode")
   public var silent: Bool = false
 
   public func run() throws {
-    if !silent {
-      Figlet.say("JsonScripts")
-    }
+    #if DEBUG
+      if !silent {
+        Figlet.say("JsonScripts")
+      }
+    #endif
 
     let definition = Definition()
 

@@ -5,6 +5,9 @@ import PackageDescription
 
 let package = Package(
   name: "JsonScripts",
+  products: [
+    .executable(name: "jsonscripts", targets: ["JsonScripts"])
+  ],
   dependencies: [
     .package(url: "https://github.com/apple/example-package-figlet", branch: "main"),
     .package(url: "https://github.com/apple/swift-argument-parser", from: "1.0.0"),
