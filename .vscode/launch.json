@@ -6,11 +6,11 @@
             "sourceLanguages": [
                 "swift"
             ],
-            "args": [],
+            "args": ["hello"],
             "cwd": "${workspaceFolder:JsonScripts}",
-            "name": "Debug JsonScripts",
-            "program": "${workspaceFolder:JsonScripts}/.build/debug/JsonScripts",
-            "preLaunchTask": "swift: Build Debug JsonScripts"
+            "name": "Debug jsonscripts",
+            "program": "${workspaceFolder:JsonScripts}/.build/debug/jsonscripts",
+            "preLaunchTask": "swift: Build Debug jsonscripts"
         },
         {
             "type": "lldb",
@@ -18,11 +18,11 @@
             "sourceLanguages": [
                 "swift"
             ],
-            "args": [],
+            "args": ["hello"],
             "cwd": "${workspaceFolder:JsonScripts}",
-            "name": "Release JsonScripts",
-            "program": "${workspaceFolder:JsonScripts}/.build/release/JsonScripts",
-            "preLaunchTask": "swift: Build Release JsonScripts"
+            "name": "Release jsonscripts",
+            "program": "${workspaceFolder:JsonScripts}/.build/release/jsonscripts",
+            "preLaunchTask": "swift: Build Release jsonscripts"
         }
     ]
 }
