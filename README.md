@@ -34,5 +34,5 @@ swift run jsonscripts hello
 ### Build
 
 ```sh
-swift build --configuration release --static-swift-stdlib
+bash scripts/build.sh
 ```
