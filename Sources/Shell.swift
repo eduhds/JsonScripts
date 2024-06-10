@@ -1,6 +1,6 @@
 import Foundation
 
-func shell(_ command: String) throws -> String {
+func shellTask(_ command: String) throws -> String {
   let task: Process = Process()
   let pipe: Pipe = Pipe()
 
@@ -18,15 +18,25 @@ func shell(_ command: String) throws -> String {
   return output
 }
 
-/* let commandArr = commandStr.split(separator: " ").map { String($0) }
+func shellExec(_ commandStr: String) throws {
+  let args = ["sh", "-c", commandStr]
 
-let program = try shell("command -v \(commandArr[0])").trimmingCharacters(
-  in: .whitespacesAndNewlines)
-print("Program: \(program)")
+  // Array of UnsafeMutablePointer<Int8>
+  let cargs = args.map { strdup($0) } + [nil]
 
-let process = Process()
-process.executableURL = URL(fileURLWithPath: program)
-process.arguments = Array(commandArr[1...])
+  execv("/bin/sh", cargs)
+}
 
-try process.run()
-process.waitUntilExit() */
+func shellProcess(_ commandStr: String) throws {
+  let commandArr = commandStr.split(separator: " ").map { String($0) }
+
+  let program = try shellTask("command -v \(commandArr[0])").trimmingCharacters(
+    in: .whitespacesAndNewlines)
+
+  let process = Process()
+  process.executableURL = URL(fileURLWithPath: program)
+  process.arguments = Array(commandArr[1...])
+
+  try process.run()
+  process.waitUntilExit()
+}

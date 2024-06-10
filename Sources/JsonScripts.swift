@@ -54,11 +54,7 @@ struct JsonScripts: ParsableCommand {
           tuiInfo("Command: \(commandStr)")
         }
 
-        let output = try shell(commandStr).trimmingCharacters(
-          in: .whitespacesAndNewlines)
-
-        print(output)
-
+        try shellExec(commandStr)
       } else {
         tuiError("Command not found")
       }
