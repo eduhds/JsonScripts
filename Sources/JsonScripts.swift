@@ -26,6 +26,12 @@ struct JsonScripts: ParsableCommand {
     #endif
 
     let definition = Definition()
+      
+    if command == "init" {
+      try definition.initJson()
+      tuiSuccess("Initialized")
+      return
+    }
 
     do {
       try definition.open(path: file ?? definition.defaultPath)

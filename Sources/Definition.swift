@@ -9,6 +9,7 @@ struct JsonFormat: Codable {
 enum OpenError: Error {
   case fileContentNotFound
   case versionUnsupported
+  case fileAlreadyExists
 }
 
 class Definition {
@@ -40,6 +41,27 @@ class Definition {
   func checkVersion() throws {
     if json!.version < currentVersion {
       throw OpenError.versionUnsupported
+    }
+  }
+    
+  func initJson() throws {
+    if fileExists(defaultPath) {
+        throw OpenError.fileAlreadyExists
+    } else {
+          let jsonContent = """
+          {
+            "version": \(currentVersion),
+            "variables": {
+              "name": "JsonScripts"
+            },
+            "scripts": {
+              "hello": "echo 'Hello from {{name}}'"
+            }
+          }
+          """
+            
+      let url = URL(fileURLWithPath: defaultPath)
+      try jsonContent.write(to: url, atomically: false, encoding: .utf8)
     }
   }
 }
