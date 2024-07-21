@@ -6,7 +6,7 @@ import Foundation
 struct JsonScripts: ParsableCommand {
   static let configuration = CommandConfiguration(
     commandName: "jsonscripts",
-    version: "0.0.2"
+    version: "0.0.3"
   )
 
   @Argument(help: "Specify the command alias/key")
