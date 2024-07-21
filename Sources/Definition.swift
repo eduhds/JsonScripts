@@ -6,7 +6,7 @@ struct JsonFormat: Codable {
   let scripts: [String: String]
 }
 
-enum OpenError: Error {
+enum DefinitionError: Error {
   case fileContentNotFound
   case versionUnsupported
   case fileAlreadyExists
@@ -34,32 +34,32 @@ class Definition {
       let decoder = JSONDecoder()
       json = try decoder.decode(JsonFormat.self, from: jsonContent)
     } else {
-      throw OpenError.fileContentNotFound
+      throw DefinitionError.fileContentNotFound
     }
   }
 
   func checkVersion() throws {
     if json!.version < currentVersion {
-      throw OpenError.versionUnsupported
+      throw DefinitionError.versionUnsupported
     }
   }
-    
+
   func initJson() throws {
     if fileExists(defaultPath) {
-        throw OpenError.fileAlreadyExists
+      throw DefinitionError.fileAlreadyExists
     } else {
-          let jsonContent = """
-          {
-            "version": \(currentVersion),
-            "variables": {
-              "name": "JsonScripts"
-            },
-            "scripts": {
-              "hello": "echo 'Hello from {{name}}'"
-            }
+      let jsonContent = """
+        {
+          "version": \(currentVersion),
+          "variables": {
+            "name": "JsonScripts"
+          },
+          "scripts": {
+            "hello": "echo 'Hello from {{name}}'"
           }
-          """
-            
+        }
+        """
+
       let url = URL(fileURLWithPath: defaultPath)
       try jsonContent.write(to: url, atomically: false, encoding: .utf8)
     }
