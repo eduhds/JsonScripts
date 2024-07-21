@@ -26,10 +26,14 @@ struct JsonScripts: ParsableCommand {
     #endif
 
     let definition = Definition()
-      
+
     if command == "init" {
-      try definition.initJson()
-      tuiSuccess("Initialized")
+      do {
+        try definition.initJson()
+        tuiSuccess("scripts.json created")
+      } catch {
+        tuiError("\(error)")
+      }
       return
     }
 
