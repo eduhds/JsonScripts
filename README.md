@@ -15,12 +15,43 @@ Run scripts/shell snippets from JSON file definition.
 USAGE: jsonscripts <command> [--file <file>] [--silent]
 
 ARGUMENTS:
-  <command>               Specify the command alias/key
+  <command>               init|list|<alias> Specify a builtin command or a command alias from scripts.json
 
 OPTIONS:
-  --file <file>           Specify the json file, defaul is "./scripts.json"
+  --file <file>           Specify the json file, default is "./scripts.json"
   --silent                Silent mode
+  --version               Show the version.
   -h, --help              Show help information.
+```
+
+### Definition file format
+
+```json
+{
+  "version": 1,
+  "variables": {
+    "name": "JsonScripts"
+  },
+  "scripts": {
+    "hello": "echo 'Hello from {{name}}'"
+  }
+}
+```
+
+### Examples
+
+```sh
+# Generate a scripts.json
+jsonscripts init
+
+# List available scripts
+jsonscripts list
+
+# Run a command by alias
+jsonscripts hello
+
+# Run a command from a scripts.json placed in another location
+jsonscripts hello --file /path/to/scripts.json
 ```
 
 ## Development
