@@ -9,7 +9,8 @@ struct JsonScripts: ParsableCommand {
     version: "0.0.4"
   )
 
-  @Argument(help: "Specify the command alias/key")
+  @Argument(
+    help: "init|list|<alias> Specify a builtin command or a command alias from scripts.json")
   public var command: String
 
   @Option(help: "Specify the json file, default is \"./scripts.json\"")
