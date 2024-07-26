@@ -67,3 +67,15 @@ func tuiWarning(_ text: String) {
 
   print(fmtText)
 }
+
+func tuiTitle(_ text: String) {
+  let fmtText = Prism {
+    Bold {
+      ForegroundColor(.white) {
+        text
+      }
+    }
+  }
+
+  print(fmtText)
+}

@@ -44,6 +44,31 @@ struct JsonScripts: ParsableCommand {
       return
     }
 
+    if command == "list" {
+      do {
+        try definition.listScripts()
+
+        print("\nSelect an option by number: ", terminator: "")
+        let input = readLine()!
+
+        if let option = Int(input) {
+          var commandStr = try definition.commandForIndex(option)
+          commandStr = definition.replaceVars(commandStr)
+
+          if !silent {
+            tuiInfo("Command: \(commandStr)")
+          }
+
+          try shellExec(commandStr)
+        } else {
+          tuiError("Invalid option")
+        }
+      } catch {
+        tuiError("\(error)")
+      }
+      return
+    }
+
     do {
       try definition.checkVersion()
 
@@ -53,12 +78,7 @@ struct JsonScripts: ParsableCommand {
 
       if var commandStr = definition.json!.scripts[command] {
 
-        if commandStr.contains("{{") && commandStr.contains("}}") {
-          for variable in definition.json!.variables {
-            commandStr = commandStr.replacingOccurrences(
-              of: "{{\(variable.key)}}", with: variable.value)
-          }
-        }
+        commandStr = definition.replaceVars(commandStr)
 
         if !silent {
           tuiInfo("Command: \(commandStr)")
