@@ -2,11 +2,13 @@ import ArgumentParser
 import Figlet
 import Foundation
 
+let VERSION = "0.0.4"
+
 @main
 struct JsonScripts: ParsableCommand {
   static let configuration = CommandConfiguration(
     commandName: "jsonscripts",
-    version: "0.0.4"
+    version: VERSION
   )
 
   @Argument(
@@ -25,6 +27,10 @@ struct JsonScripts: ParsableCommand {
         Figlet.say("JsonScripts")
       }
     #endif
+
+    if !silent {
+      tuiInfo("JsonScripts v\(VERSION)")
+    }
 
     let definition = Definition()
 
@@ -74,7 +80,7 @@ struct JsonScripts: ParsableCommand {
       try definition.checkVersion()
 
       if !silent {
-        tuiInfo("Version: \(definition.json!.version)")
+        tuiInfo("Scripts version: \(definition.json!.version)")
       }
 
       if var commandStr = definition.json!.scripts[command] {
