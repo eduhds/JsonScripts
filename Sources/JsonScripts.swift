@@ -53,9 +53,10 @@ struct JsonScripts: ParsableCommand {
 
     if command == "list" {
       do {
+        print("\n> Available scripts:")
         try definition.listScripts()
 
-        print("\nSelect an option by number: ", terminator: "")
+        print("\n> Select an option by number: ", terminator: "")
         let input = readLine()!
 
         if let option = Int(input) {
@@ -63,7 +64,7 @@ struct JsonScripts: ParsableCommand {
           commandStr = definition.replaceVars(commandStr)
 
           if !silent {
-            print("\n")            
+            print("")
             tuiInfo(commandStr)
           }
 
