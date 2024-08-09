@@ -63,7 +63,8 @@ struct JsonScripts: ParsableCommand {
           commandStr = definition.replaceVars(commandStr)
 
           if !silent {
-            tuiInfo("Command: \(commandStr)")
+            print("\n")            
+            tuiInfo(commandStr)
           }
 
           try shellExec(commandStr)
@@ -88,7 +89,7 @@ struct JsonScripts: ParsableCommand {
         commandStr = definition.replaceVars(commandStr)
 
         if !silent {
-          tuiInfo("Command: \(commandStr)")
+          tuiInfo(commandStr)
         }
 
         try shellExec(commandStr)
