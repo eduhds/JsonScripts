@@ -68,10 +68,15 @@ class Definition {
 
   func listScripts() throws {
     if let scripts = json?.scripts {
-      var count = 0
+      let count = scripts.count
+      var num = 0
       for (key, _) in scripts.sorted(by: { $0.key < $1.key }) {
-        count += 1
-        tuiTitle("[\(count)] \(key)")
+        num += 1
+        var ind = String(num)
+        if ind.count < String(count).count {
+            ind = String(num).padding(toLength: String(count).count, withPad: " ", startingAt: 0)
+        }
+        tuiTitle("[\(ind)] \(key)")
       }
     } else {
       throw DefinitionError.noScriptsAvailable
