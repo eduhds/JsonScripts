@@ -2,7 +2,7 @@ import ArgumentParser
 import Figlet
 import Foundation
 
-let VERSION = "0.0.5"
+let VERSION = "0.0.6"
 
 @main
 struct JsonScripts: ParsableCommand {
