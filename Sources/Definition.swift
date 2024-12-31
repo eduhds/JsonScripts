@@ -74,7 +74,9 @@ class Definition {
         num += 1
         var ind = String(num)
         if ind.count < String(count).count {
-            ind = String(num).padding(toLength: String(count).count, withPad: " ", startingAt: 0)
+          ind =
+            "".padding(toLength: String(count).count - ind.count, withPad: " ", startingAt: 0)
+            + String(num)
         }
         tuiTitle("[\(ind)] \(key)")
       }
