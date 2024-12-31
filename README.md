@@ -7,7 +7,11 @@
 JsonScripts CLI.
 Run scripts/shell snippets from JSON file definition.
 
-> Work in progress!
+## Install
+
+Download executable from [releases](https://github.com/eduhds/JsonScripts/releases).
+
+> Tip: Consider using [gspm](https://github.com/eduhds/gspm) to download and install assets from GitHub releases!
 
 ## Usage
 
@@ -67,3 +71,12 @@ swift run jsonscripts hello
 ```sh
 bash scripts/build.sh
 ```
+
+## License
+
+[GPL-3.0 license](./LICENSE.txt)
+
+## Credits/Thanks
+
+- [apple/swift-argument-parser](https://github.com/apple/swift-argument-parser)
+- [jordanbaird/Prism](https://github.com/jordanbaird/Prism)
