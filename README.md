@@ -16,14 +16,15 @@ Download executable from [releases](https://github.com/eduhds/JsonScripts/releas
 ## Usage
 
 ```
-USAGE: jsonscripts <command> [--file <file>] [--silent]
+USAGE: jsonscripts <command> [--file <file>] [--verbose] [<arguments> ...]
 
 ARGUMENTS:
   <command>               init|list|<alias> Specify a builtin command or a command alias from scripts.json
+  <arguments>             Command arguments
 
 OPTIONS:
-  --file <file>           Specify the json file, default is "./scripts.json"
-  --silent                Silent mode
+  -f, --file <file>       Specify the json file, default is "./scripts.json"
+  --verbose               Verbose mode
   --version               Show the version.
   -h, --help              Show help information.
 ```
@@ -56,6 +57,9 @@ jsonscripts hello
 
 # Run a command from a scripts.json placed in another location
 jsonscripts hello --file /path/to/scripts.json
+
+# Passing command line args
+jsonscripts foo -- --bar
 ```
 
 ## Development
