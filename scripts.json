@@ -1,12 +1,13 @@
 {
-    "version": 1,
-    "variables": {
-        "name": "JsonScripts"
-    },
-    "scripts": {
-        "hello": "echo 'Hello World!'",
-        "hello-name": "echo 'Hello {{name}}'",
-        "ls": "ls -la",
-        "ls-home": "ls -la ~"
-    }
+  "version": 1,
+  "variables": {
+    "name": "JsonScripts"
+  },
+  "scripts": {
+    "hello": "echo 'Hello World!'",
+    "hello-name": "echo 'Hello {{name}}'",
+    "ls": "ls -la",
+    "ls-home": "ls -la ~",
+    "build": "bash scripts/build.sh"
+  }
 }
