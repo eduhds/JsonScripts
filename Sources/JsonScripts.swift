@@ -2,7 +2,7 @@ import ArgumentParser
 import Figlet
 import Foundation
 
-let VERSION = "0.0.6"
+let VERSION = "0.0.7"
 
 @main
 struct JsonScripts: ParsableCommand {
@@ -15,7 +15,7 @@ struct JsonScripts: ParsableCommand {
     help: "init|list|<alias> Specify a builtin command or a command alias from scripts.json")
   public var command: String
 
-  @Option(help: "Specify the json file, default is \"./scripts.json\"")
+  @Option(name: .shortAndLong, help: "Specify the json file, default is \"./scripts.json\"")
   public var file: String?
 
   @Flag(help: "Verbose mode")
