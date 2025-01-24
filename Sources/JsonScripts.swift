@@ -18,17 +18,20 @@ struct JsonScripts: ParsableCommand {
   @Option(help: "Specify the json file, default is \"./scripts.json\"")
   public var file: String?
 
-  @Flag(help: "Silent mode")
-  public var silent: Bool = false
+  @Flag(help: "Verbose mode")
+  public var verbose: Bool = false
+
+  @Argument(help: "Command arguments")
+  public var arguments: [String] = []
 
   public func run() throws {
     #if DEBUG
-      if !silent {
+      if verbose {
         Figlet.say("JsonScripts")
       }
     #endif
 
-    if !silent {
+    if verbose {
       tuiInfo("JsonScripts v\(VERSION)")
     }
 
@@ -63,7 +66,7 @@ struct JsonScripts: ParsableCommand {
           var commandStr = try definition.commandForIndex(option)
           commandStr = definition.replaceVars(commandStr)
 
-          if !silent {
+          if verbose {
             print("")
             tuiInfo(commandStr)
           }
@@ -81,7 +84,7 @@ struct JsonScripts: ParsableCommand {
     do {
       try definition.checkVersion()
 
-      if !silent {
+      if verbose {
         tuiInfo("Scripts version: \(definition.json!.version)")
       }
 
@@ -89,7 +92,11 @@ struct JsonScripts: ParsableCommand {
 
         commandStr = definition.replaceVars(commandStr)
 
-        if !silent {
+        if !arguments.isEmpty {
+          commandStr += " " + arguments.joined(separator: " ")
+        }
+
+        if verbose {
           tuiInfo(commandStr)
         }
 
