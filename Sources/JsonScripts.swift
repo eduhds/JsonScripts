@@ -2,7 +2,7 @@ import ArgumentParser
 import Figlet
 import Foundation
 
-let VERSION = "0.0.7"
+let VERSION = "0.0.8"
 
 @main
 struct JsonScripts: ParsableCommand {
@@ -26,9 +26,7 @@ struct JsonScripts: ParsableCommand {
 
   public func run() throws {
     #if DEBUG
-      if verbose {
-        Figlet.say("JsonScripts")
-      }
+      Figlet.say("JsonScripts")
     #endif
 
     if verbose {
@@ -37,25 +35,21 @@ struct JsonScripts: ParsableCommand {
 
     let definition = Definition()
 
-    if command == "init" {
-      do {
+    do {
+      if command != "init" {
+        try definition.open(path: file ?? definition.defaultPath)
+        try definition.checkVersion()
+
+        if verbose {
+          tuiInfo("Scripts version: \(definition.json!.version)")
+        }
+      }
+
+      switch command {
+      case "init":
         try definition.initJson()
         tuiSuccess("scripts.json created")
-      } catch {
-        tuiError("\(error)")
-      }
-      return
-    }
-
-    do {
-      try definition.open(path: file ?? definition.defaultPath)
-    } catch {
-      tuiError("\(error)")
-      return
-    }
-
-    if command == "list" {
-      do {
+      case "list":
         print("\n> Available scripts:")
         try definition.listScripts()
 
@@ -75,37 +69,26 @@ struct JsonScripts: ParsableCommand {
         } else {
           tuiError("Invalid option")
         }
-      } catch {
-        tuiError("\(error)")
-      }
-      return
-    }
+      default:
+        if var commandStr = definition.json!.scripts[command] {
 
-    do {
-      try definition.checkVersion()
+          commandStr = definition.replaceVars(commandStr)
 
-      if verbose {
-        tuiInfo("Scripts version: \(definition.json!.version)")
-      }
+          if !arguments.isEmpty {
+            commandStr += " " + arguments.joined(separator: " ")
+          }
 
-      if var commandStr = definition.json!.scripts[command] {
+          if verbose {
+            tuiInfo(commandStr)
+          }
 
-        commandStr = definition.replaceVars(commandStr)
-
-        if !arguments.isEmpty {
-          commandStr += " " + arguments.joined(separator: " ")
+          try shellExec(commandStr)
+        } else {
+          tuiError("Command not found")
         }
-
-        if verbose {
-          tuiInfo(commandStr)
-        }
-
-        try shellExec(commandStr)
-      } else {
-        tuiError("Command not found")
       }
     } catch {
-      tuiError("Error: \(error)")
+      tuiError("\(error)")
     }
   }
 }
