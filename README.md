@@ -16,7 +16,7 @@ Download executable from [releases](https://github.com/eduhds/JsonScripts/releas
 ## Usage
 
 ```
-USAGE: jsonscripts <command> [--file <file>] [--verbose] [<arguments> ...]
+USAGE: jnss <command> [--file <file>] [--verbose] [<arguments> ...]
 
 ARGUMENTS:
   <command>               init|list|<alias> Specify a builtin command or a command alias from scripts.json
@@ -47,19 +47,19 @@ OPTIONS:
 
 ```sh
 # Generate a scripts.json
-jsonscripts init
+jnss init
 
 # List available scripts
-jsonscripts list
+jnss list
 
 # Run a command by alias
-jsonscripts hello
+jnss hello
 
 # Run a command from a scripts.json placed in another location
-jsonscripts hello --file /path/to/scripts.json
+jnss hello --file /path/to/scripts.json
 
 # Passing command line args
-jsonscripts foo -- --bar
+jnss foo -- --bar
 ```
 
 ## Development
@@ -67,7 +67,7 @@ jsonscripts foo -- --bar
 ### Run
 
 ```sh
-swift run jsonscripts hello
+swift run jnss hello
 ```
 
 ### Build

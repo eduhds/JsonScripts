@@ -7,7 +7,7 @@ let VERSION = "0.0.7"
 @main
 struct JsonScripts: ParsableCommand {
   static let configuration = CommandConfiguration(
-    commandName: "jsonscripts",
+    commandName: "jnss",
     version: VERSION
   )
 

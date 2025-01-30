@@ -14,6 +14,6 @@ fi
 if [ $? -eq 0 ]; then
     cp README.md LICENSE.txt .build/release
     tar -C .build/release \
-        -czvf .build/release/jsonscripts-${os,}-${arch}.tar.gz \
-        jsonscripts README.md LICENSE.txt
+        -czvf .build/release/jnss-${os,}-${arch}.tar.gz \
+        jnss README.md LICENSE.txt
 fi

@@ -1,28 +1,42 @@
 {
-    "configurations": [
-        {
-            "type": "lldb",
-            "request": "launch",
-            "sourceLanguages": [
-                "swift"
-            ],
-            "args": ["hello"],
-            "cwd": "${workspaceFolder:JsonScripts}",
-            "name": "Debug jsonscripts",
-            "program": "${workspaceFolder:JsonScripts}/.build/debug/jsonscripts",
-            "preLaunchTask": "swift: Build Debug jsonscripts"
-        },
-        {
-            "type": "lldb",
-            "request": "launch",
-            "sourceLanguages": [
-                "swift"
-            ],
-            "args": ["hello"],
-            "cwd": "${workspaceFolder:JsonScripts}",
-            "name": "Release jsonscripts",
-            "program": "${workspaceFolder:JsonScripts}/.build/release/jsonscripts",
-            "preLaunchTask": "swift: Build Release jsonscripts"
-        }
-    ]
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "sourceLanguages": ["swift"],
+      "args": ["hello"],
+      "cwd": "${workspaceFolder:JsonScripts}",
+      "name": "Debug jnss",
+      "program": "${workspaceFolder:JsonScripts}/.build/debug/jnss",
+      "preLaunchTask": "swift: Build Debug jnss"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "sourceLanguages": ["swift"],
+      "args": ["hello"],
+      "cwd": "${workspaceFolder:JsonScripts}",
+      "name": "Release jnss",
+      "program": "${workspaceFolder:JsonScripts}/.build/release/jnss",
+      "preLaunchTask": "swift: Build Release jnss"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "${workspaceFolder:JsonScripts}",
+      "name": "Debug jnss",
+      "program": "${workspaceFolder:JsonScripts}/.build/debug/jnss",
+      "preLaunchTask": "swift: Build Debug jnss"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "${workspaceFolder:JsonScripts}",
+      "name": "Release jnss",
+      "program": "${workspaceFolder:JsonScripts}/.build/release/jnss",
+      "preLaunchTask": "swift: Build Release jnss"
+    }
+  ]
 }
