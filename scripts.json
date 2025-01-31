@@ -8,6 +8,7 @@
     "hello-name": "echo 'Hello {{name}}'",
     "ls": "ls -la",
     "ls-home": "ls -la ~",
-    "build": "bash scripts/build.sh"
+    "build": "bash scripts/build.sh",
+    "release": "gh release create {{tag}} -t {{tag}} --generate-notes"
   }
 }
