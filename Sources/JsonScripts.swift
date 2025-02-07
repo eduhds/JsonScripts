@@ -4,6 +4,18 @@ import Foundation
 
 let VERSION = "0.0.8"
 
+struct KeyValueOption: ExpressibleByArgument {
+    let key: String
+    let value: String
+
+    init?(argument: String) {
+        let components = argument.split(separator: "=", maxSplits: 1).map(String.init)
+        guard components.count == 2 else { return nil }
+        self.key = components[0]
+        self.value = components[1]
+    }
+}
+
 @main
 struct JsonScripts: ParsableCommand {
   static let configuration = CommandConfiguration(
@@ -23,6 +35,9 @@ struct JsonScripts: ParsableCommand {
 
   @Argument(help: "Command arguments")
   public var arguments: [String] = []
+    
+    @Option(name: .customLong("var", withSingleDash: true), parsing: .upToNextOption, help: "Specify multiple key-value pairs in the format 'key=value'.")
+  var variables: [KeyValueOption] = []
 
   public func run() throws {
     #if DEBUG
@@ -70,9 +85,15 @@ struct JsonScripts: ParsableCommand {
           tuiError("Invalid option")
         }
       default:
+        var vars: [String: String] = [:]
+          
+        for variable in variables {
+          vars[variable.key] = variable.value
+        }
+
         if var commandStr = definition.json!.scripts[command] {
 
-          commandStr = definition.replaceVars(commandStr)
+          commandStr = definition.replaceVars(commandStr, variables: vars)
 
           if !arguments.isEmpty {
             commandStr += " " + arguments.joined(separator: " ")

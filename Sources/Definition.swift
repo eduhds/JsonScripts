@@ -101,10 +101,12 @@ class Definition {
     }
   }
 
-  func replaceVars(_ command: String) -> String {
+  func replaceVars(_ command: String, variables: [String: String] = [:]) -> String {
     if command.contains("{{") && command.contains("}}") {
       var commandStr = command
-      for variable in json!.variables {
+      var commandVars = variables
+      commandVars.merge(json!.variables){ (curr, _) in curr }
+      for variable in commandVars {
         commandStr = commandStr.replacingOccurrences(
           of: "{{\(variable.key)}}", with: variable.value)
       }
