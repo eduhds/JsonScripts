@@ -16,7 +16,7 @@ Download executable from [releases](https://github.com/eduhds/JsonScripts/releas
 ## Usage
 
 ```
-USAGE: jnss <command> [--file <file>] [--verbose] [<arguments> ...]
+USAGE: jnss <command> [--file <file>] [--verbose] [<arguments> ...] [-var <var> ...]
 
 ARGUMENTS:
   <command>               init|list|<alias> Specify a builtin command or a command alias from scripts.json
@@ -25,6 +25,7 @@ ARGUMENTS:
 OPTIONS:
   -f, --file <file>       Specify the json file, default is "./scripts.json"
   --verbose               Verbose mode
+  -var <var>              Specify multiple key-value pairs in the format 'key=value'.
   --version               Show the version.
   -h, --help              Show help information.
 ```
@@ -60,6 +61,9 @@ jnss hello --file /path/to/scripts.json
 
 # Passing command line args
 jnss foo -- --bar
+
+# Passing variables (will override one if already exists in .json file)
+jnss hello -var 'name=world'
 ```
 
 ## Development
@@ -73,7 +77,10 @@ swift run jnss hello
 ### Build
 
 ```sh
-bash scripts/build.sh
+# Build for release
+swift run jnss build
+# Deploy GitHub release
+swift run jnss release -var 'tag=<tag here>' -- .build/release/jnss*.tar.gz
 ```
 
 ## License
