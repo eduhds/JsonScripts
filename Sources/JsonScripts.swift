@@ -2,18 +2,18 @@ import ArgumentParser
 import Figlet
 import Foundation
 
-let VERSION = "0.0.8"
+let VERSION = "0.0.9"
 
 struct KeyValueOption: ExpressibleByArgument {
-    let key: String
-    let value: String
+  let key: String
+  let value: String
 
-    init?(argument: String) {
-        let components = argument.split(separator: "=", maxSplits: 1).map(String.init)
-        guard components.count == 2 else { return nil }
-        self.key = components[0]
-        self.value = components[1]
-    }
+  init?(argument: String) {
+    let components = argument.split(separator: "=", maxSplits: 1).map(String.init)
+    guard components.count == 2 else { return nil }
+    self.key = components[0]
+    self.value = components[1]
+  }
 }
 
 @main
@@ -35,8 +35,10 @@ struct JsonScripts: ParsableCommand {
 
   @Argument(help: "Command arguments")
   public var arguments: [String] = []
-    
-    @Option(name: .customLong("var", withSingleDash: true), parsing: .upToNextOption, help: "Specify multiple key-value pairs in the format 'key=value'.")
+
+  @Option(
+    name: .customLong("var", withSingleDash: true), parsing: .upToNextOption,
+    help: "Specify multiple key-value pairs in the format 'key=value'.")
   var variables: [KeyValueOption] = []
 
   public func run() throws {
@@ -86,7 +88,7 @@ struct JsonScripts: ParsableCommand {
         }
       default:
         var vars: [String: String] = [:]
-          
+
         for variable in variables {
           vars[variable.key] = variable.value
         }
