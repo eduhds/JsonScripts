@@ -64,6 +64,9 @@ jnss foo -- --bar
 
 # Passing variables (will override one if already exists in .json file)
 jnss hello -var 'name=world'
+
+# Changing shell
+SHELL=/bin/bash jnss hello
 ```
 
 ## Development
