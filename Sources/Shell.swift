@@ -19,12 +19,14 @@ func shellTask(_ command: String) throws -> String {
 }
 
 func shellExec(_ commandStr: String) throws {
-  let args = ["sh", "-c", commandStr]
+  let shellCmd = ProcessInfo.processInfo.environment["SHELL"] ?? "/bin/sh"
+
+  let args = [shellCmd, "-c", commandStr]
 
   // Array of UnsafeMutablePointer<Int8>
   let cargs = args.map { strdup($0) } + [nil]
 
-  execv("/bin/sh", cargs)
+  execv(shellCmd, cargs)
 }
 
 func shellProcess(_ commandStr: String) throws {
