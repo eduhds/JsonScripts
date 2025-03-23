@@ -51,7 +51,7 @@ class Definition {
     } else {
       let jsonContent = """
         {
-          "jnss": "https://github.com/eduhds/JsonScripts",
+          "$schema": "https://eduhds.github.io/JsonScripts/schema.json",
           "version": \(currentVersion),
           "variables": {
             "name": "JsonScripts"

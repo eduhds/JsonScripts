@@ -1,4 +1,5 @@
 {
+  "$schema": "https://eduhds.github.io/JsonScripts/schema.json",
   "version": 1,
   "variables": {
     "name": "JsonScripts"

@@ -11,7 +11,7 @@
       "patternProperties": {
         ".*": {
           "type": "string",
-          "pattern": "any string here"
+          "pattern": ".*"
         }
       },
       "additionalProperties": false
@@ -21,7 +21,7 @@
       "patternProperties": {
         ".*": {
           "type": "string",
-          "pattern": "any string here"
+          "pattern": ".*"
         }
       },
       "additionalProperties": false
