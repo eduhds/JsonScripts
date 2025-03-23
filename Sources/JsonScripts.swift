@@ -2,7 +2,7 @@ import ArgumentParser
 import Figlet
 import Foundation
 
-let VERSION = "0.0.10"
+let VERSION = "0.1.0"
 
 struct KeyValueOption: ExpressibleByArgument {
   let key: String
