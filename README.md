@@ -1,5 +1,7 @@
 # JsonScripts
 
+<img alt="eduhds/JsonScripts" src="https://minodo.com.br/lg/?owner=eduhds&repo=JsonScripts" width="100%" />
+
 ![Swift](https://img.shields.io/badge/swift-F54A2A?style=for-the-badge&logo=swift&logoColor=white)
 ![macOS](https://img.shields.io/badge/mac%20os-000000?style=for-the-badge&logo=macos&logoColor=F0F0F0)
 ![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
