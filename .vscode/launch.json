@@ -1,24 +1,34 @@
 {
   "configurations": [
     {
-      "type": "lldb",
+      "type": "swift",
       "request": "launch",
-      "sourceLanguages": ["swift"],
-      "args": ["hello"],
+      "sourceLanguages": [
+        "swift"
+      ],
+      "args": [
+        "hello"
+      ],
       "cwd": "${workspaceFolder:JsonScripts}",
       "name": "Debug jnss",
-      "program": "${workspaceFolder:JsonScripts}/.build/debug/jnss",
-      "preLaunchTask": "swift: Build Debug jnss"
+      "preLaunchTask": "swift: Build Debug jnss",
+      "target": "jnss",
+      "configuration": "debug"
     },
     {
-      "type": "lldb",
+      "type": "swift",
       "request": "launch",
-      "sourceLanguages": ["swift"],
-      "args": ["hello"],
+      "sourceLanguages": [
+        "swift"
+      ],
+      "args": [
+        "hello"
+      ],
       "cwd": "${workspaceFolder:JsonScripts}",
       "name": "Release jnss",
-      "program": "${workspaceFolder:JsonScripts}/.build/release/jnss",
-      "preLaunchTask": "swift: Build Release jnss"
+      "preLaunchTask": "swift: Build Release jnss",
+      "target": "jnss",
+      "configuration": "release"
     },
     {
       "type": "lldb",
