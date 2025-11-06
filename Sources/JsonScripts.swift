@@ -2,7 +2,7 @@ import ArgumentParser
 import Figlet
 import Foundation
 
-let VERSION = "0.1.0"
+let VERSION = "0.1.1"
 
 struct KeyValueOption: ExpressibleByArgument {
   let key: String
@@ -98,11 +98,14 @@ struct JsonScripts: ParsableCommand {
           commandStr = definition.replaceVars(commandStr, variables: vars)
 
           if !arguments.isEmpty {
-            var joinedArgs = arguments.joined(separator: " ")
-
-            if joinedArgs.hasPrefix("{") && joinedArgs.hasSuffix("}") || joinedArgs.hasPrefix("[") && joinedArgs.hasSuffix("]") {
-                joinedArgs = "'\(joinedArgs)'"
-            }
+            let joinedArgs = arguments.map({ arg in
+              if arg.hasPrefix("{") && arg.hasSuffix("}")
+                || arg.hasPrefix("[") && arg.hasSuffix("]")
+              {
+                return "'\(arg)'"
+              }
+              return arg
+            }).joined(separator: " ")
 
             commandStr += " " + joinedArgs
           }

@@ -45,21 +45,20 @@ func shellProcess(_ commandStr: String) throws {
 }
 
 func bashEscape(_ input: String) -> String {
-    var escaped = ""
-    for char in input {
-        switch char {
-        case "\\":
-            escaped.append("\\\\")
-        case "\"":
-            escaped.append("\\\"")
-        case "$":
-            escaped.append("\\$")
-        case "`":
-            escaped.append("\\`")
-        default:
-            escaped.append(char)
-        }
+  var escaped = ""
+  for char in input {
+    switch char {
+    case "\\":
+      escaped.append("\\\\")
+    case "\"":
+      escaped.append("\\\"")
+    case "$":
+      escaped.append("\\$")
+    case "`":
+      escaped.append("\\`")
+    default:
+      escaped.append(char)
     }
-    return escaped
+  }
+  return escaped
 }
-
