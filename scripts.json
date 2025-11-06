@@ -9,6 +9,8 @@
     "hello-name": "echo 'Hello {{name}}'",
     "ls": "ls -la",
     "ls-home": "ls -la ~",
+    "echo": "echo",
+    "self": "jnss",
     "build": "bash scripts/build.sh",
     "release": "gh release create {{tag}} -t {{tag}} --generate-notes"
   }

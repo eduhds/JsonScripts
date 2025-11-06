@@ -98,7 +98,13 @@ struct JsonScripts: ParsableCommand {
           commandStr = definition.replaceVars(commandStr, variables: vars)
 
           if !arguments.isEmpty {
-            commandStr += " " + arguments.joined(separator: " ")
+            var joinedArgs = arguments.joined(separator: " ")
+
+            if joinedArgs.hasPrefix("{") && joinedArgs.hasSuffix("}") || joinedArgs.hasPrefix("[") && joinedArgs.hasSuffix("]") {
+                joinedArgs = "'\(joinedArgs)'"
+            }
+
+            commandStr += " " + joinedArgs
           }
 
           if verbose {

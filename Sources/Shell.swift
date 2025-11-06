@@ -24,9 +24,10 @@ func shellExec(_ commandStr: String) throws {
   let args = [shellCmd, "-c", commandStr]
 
   // Array of UnsafeMutablePointer<Int8>
-  let cargs = args.map { strdup($0) } + [nil]
+  let cargs: [UnsafeMutablePointer<CChar>?] = args.map { strdup($0) } + [nil]
 
   execv(shellCmd, cargs)
+  perror("execv")
 }
 
 func shellProcess(_ commandStr: String) throws {
@@ -42,3 +43,23 @@ func shellProcess(_ commandStr: String) throws {
   try process.run()
   process.waitUntilExit()
 }
+
+func bashEscape(_ input: String) -> String {
+    var escaped = ""
+    for char in input {
+        switch char {
+        case "\\":
+            escaped.append("\\\\")
+        case "\"":
+            escaped.append("\\\"")
+        case "$":
+            escaped.append("\\$")
+        case "`":
+            escaped.append("\\`")
+        default:
+            escaped.append(char)
+        }
+    }
+    return escaped
+}
+
